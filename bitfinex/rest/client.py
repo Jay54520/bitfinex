@@ -141,6 +141,27 @@ class Client:
         response = self._post("/order/new", payload=payload, verify=True)
         return response
 
+    def place_oco_order(self, amount, price, side,
+                        symbol, oco_price):
+        payload = {
+
+            "request": "/v1/order/new",
+            "nonce": self._nonce(),
+            "symbol": symbol,
+            "amount": amount,
+            "price": price,
+            "exchange": 'bitfinex',
+            "side": side,
+            "type": 'limit',
+            'ocoorder': True,
+            '{}_price_oco'.format(side): oco_price
+
+        }
+
+        response = self._post("/order/new", payload=payload, verify=True)
+        return response
+
+
     def place_multiple_orders(self, orders):
         """
         Submit a new multiple order.
