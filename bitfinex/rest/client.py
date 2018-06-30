@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
 import requests
@@ -161,7 +161,6 @@ class Client:
         response = self._post("/order/new", payload=payload, verify=True)
         return response
 
-
     def place_multiple_orders(self, orders):
         """
         Submit a new multiple order.
@@ -169,9 +168,9 @@ class Client:
 
         payload = {
 
-           "request" : "/v1/order/new/multi",
-           "nonce"   : self._nonce(),
-           "orders"  : orders
+            "request": "/v1/order/new/multi",
+            "nonce": self._nonce(),
+            "orders": orders
 
         }
         response = self._post("/order/new/multi", payload=payload, verify=True)
@@ -326,7 +325,6 @@ class Client:
         response = self._post("/offer/status", payload=payload, verify=True)
         return response
 
-
     def offers_history(self):
         """
 
@@ -366,6 +364,14 @@ class Client:
         response = self._post("/balances", payload=payload, verify=True)
         return response
 
+    def margin_infos(self):
+        payload = {
+            "request": "/v1/margin_infos",
+            "nonce": self._nonce()
+        }
+        response = self._post("/margin_infos", payload=payload, verify=True)
+        return response
+
     def history(self, currency, since=0, until=9999999999, limit=500, wallet='exchange'):
         """
         View you balance ledger entries
@@ -387,7 +393,6 @@ class Client:
         }
         response = self._post("/history", payload=payload, verify=True)
         return response
-
 
     def movements(self, currency, start=0, end=9999999999, limit=10000, method='bitcoin'):
         """
@@ -420,7 +425,6 @@ class Client:
         """
         return self._get(self.url_for(PATH_SYMBOLS))
 
-
     def symbols_details(self):
         """
         GET /symbols_details
@@ -438,7 +442,6 @@ class Client:
         """
         return self._get(self.url_for("symbols_details"))
 
-
     def ticker(self, symbol):
         """
         GET /ticker/:symbol
@@ -454,7 +457,6 @@ class Client:
         """
         return self._get(self.url_for(PATH_TICKER, (symbol)))
 
-
     def today(self, symbol):
         """
         GET /today/:symbol
@@ -463,7 +465,6 @@ class Client:
         {"low":"550.09","high":"572.2398","volume":"7305.33119836"}
         """
         return self._get(self.url_for(PATH_TODAY, (symbol)))
-
 
     def stats(self, symbol):
         """
@@ -487,7 +488,6 @@ class Client:
                 period[key] = new_value
 
         return data
-
 
     def lendbook(self, currency, parameters=None):
         """
@@ -518,7 +518,6 @@ class Client:
 
         return data
 
-
     def order_book(self, symbol, parameters=None):
         """
         curl "https://api.bitfinex.com/v1/book/btcusd"
@@ -545,6 +544,7 @@ class Client:
                     list_[key] = value
 
         return data
+
 
 class TradeClient(Client):
     """Added for backward compatibility"""
